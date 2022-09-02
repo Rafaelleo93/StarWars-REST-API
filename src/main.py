@@ -30,13 +30,18 @@ def handle_invalid_usage(error):
 def sitemap():
     return generate_sitemap(app)
 
-@app.route('/user', methods=['GET'])
-def handle_hello():
-    queryset =User.query.all()
-#    user_list = list(map(lambda user: user.serialize(), user_list))
+@app.route('/users', methods=['GET'])
+def get_users():
+    queryset =user.query.all()
+#    users_list = list(map(lambda users: users.serialize(), users_list))
     user_list =[user.serialize() for user in queryset]
 
     return jsonify(user_list), 200
+
+@app.route('/users/favorites', methods=['GET'])
+def get_users_favorites():
+
+    return jsonify("user_favorites"), 200
 
 @app.route('/people', methods=['GET'])
 def get_people():
@@ -48,6 +53,16 @@ def get_sigle_people(people_id):
 
     return jsonify(people_id)
 
+@app.route('/favorite/people/<int:people_id>', methods=['POST'])
+def post_favorite_people(people_id):
+
+    return jsonify(people_id)
+
+@app.route('/favorite/people/<int:people_id>', methods=['DELETE'])
+def delete_favorite_people(people_id):
+
+    return jsonify(people_id)
+
 @app.route('/planet', methods=['GET'])
 def get_planet():
 
@@ -55,6 +70,16 @@ def get_planet():
 
 @app.route('/planet/<int:planet_id>', methods=['GET'])
 def get_sigle_planet(planet_id):
+
+    return jsonify(planet_id)
+
+@app.route('/favorite/people/<int:planet_id>', methods=['POST'])
+def post_favorite_planet(planet_id):
+
+    return jsonify(planet_id)
+
+@app.route('/favorite/people/<int:planet_id>', methods=['DELETE'])
+def delete_favorite_planet(planet_id):
 
     return jsonify(planet_id)
 
